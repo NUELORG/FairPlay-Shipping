@@ -33,13 +33,13 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Live ticker */}
-      <div className="fixed top-0 left-0 right-0 z-[60] bg-slate-900 text-amber-400 py-1.5 px-4 text-sm font-medium flex items-center justify-center gap-2 animate-pulse-soft">
-        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-        Live: {liveCount.toLocaleString()} packages in transit right now
+      <div className="fixed top-0 left-0 right-0 z-[60] bg-slate-900 text-amber-400 py-1.5 px-3 sm:px-4 text-xs sm:text-sm font-medium flex items-center justify-center gap-2 animate-pulse-soft">
+        <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0" />
+        <span className="truncate">Live: {liveCount.toLocaleString()} packages in transit</span>
       </div>
 
       {/* Hero - Your logistics image */}
-      <section className="relative pt-28 min-h-[95vh] flex items-center overflow-hidden">
+      <section className="relative pt-24 sm:pt-28 min-h-[85vh] sm:min-h-[95vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src={IMAGES.hero}
@@ -54,22 +54,22 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-slate-900/90 to-transparent" />
         <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 lg:px-12">
           <div className="max-w-2xl">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-tight animate-fade-in-up">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight animate-fade-in-up">
               Ship with confidence.
               <br />
               <span className="text-amber-400">Track every step.</span>
             </h1>
-            <p className="mt-8 text-xl text-slate-300 max-w-xl animate-fade-in-up animate-delay-1 opacity-0 [animation-fill-mode:forwards]">
+            <p className="mt-6 sm:mt-8 text-base sm:text-xl text-slate-300 max-w-xl animate-fade-in-up animate-delay-1 opacity-0 [animation-fill-mode:forwards]">
               Full-service logistics and supply chain solutions. Air freight, ocean freight, and express delivery to 220+ countries.
             </p>
-            <div className="mt-12 flex flex-col sm:flex-row gap-4 animate-fade-in-up animate-delay-2 opacity-0 [animation-fill-mode:forwards]">
-              <Link href="/send" className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold text-lg rounded-lg transition-all shadow-xl shadow-amber-500/30 hover:scale-105">
+            <div className="mt-8 sm:mt-12 flex flex-col sm:flex-row gap-3 sm:gap-4 animate-fade-in-up animate-delay-2 opacity-0 [animation-fill-mode:forwards]">
+              <Link href="/send" className="inline-flex items-center justify-center gap-2 px-6 sm:px-10 py-4 sm:py-5 bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold text-base sm:text-lg rounded-lg transition-all shadow-xl shadow-amber-500/30 active:scale-95 sm:hover:scale-105">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                 </svg>
                 Send Package
               </Link>
-              <a href="#track" className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-white/10 hover:bg-white/20 text-white font-semibold text-lg rounded-lg border-2 border-white/40 transition-all backdrop-blur-sm">
+              <a href="#track" className="inline-flex items-center justify-center gap-2 px-6 sm:px-10 py-4 sm:py-5 bg-white/10 hover:bg-white/20 text-white font-semibold text-base sm:text-lg rounded-lg border-2 border-white/40 transition-all backdrop-blur-sm">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
@@ -81,16 +81,16 @@ export default function Home() {
       </section>
 
       {/* Promo banners */}
-      <section className="bg-amber-500 py-4 border-y-2 border-amber-600">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-          <p className="text-center text-slate-900 font-bold text-lg">
+      <section className="bg-amber-500 py-3 sm:py-4 border-y-2 border-amber-600">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
+          <p className="text-center text-slate-900 font-bold text-sm sm:text-lg">
             🚚 Save 15% on Express Shipping — Use code <span className="bg-slate-900 text-amber-400 px-3 py-1 rounded font-mono font-bold">EXPRESS15</span> at checkout
           </p>
         </div>
       </section>
 
-      <section className="bg-slate-800 py-3">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex flex-wrap justify-center gap-6 text-amber-400/90 text-sm font-medium">
+      <section className="bg-slate-800 py-2 sm:py-3">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 flex flex-wrap justify-center gap-3 sm:gap-6 text-amber-400/90 text-xs sm:text-sm font-medium">
           <span>✓ 2-Day Express Available</span>
           <span>✓ Free Packaging</span>
           <span>✓ $100 Insurance Included</span>
@@ -99,12 +99,12 @@ export default function Home() {
       </section>
 
       {/* Track Section */}
-      <section id="track" className="py-24 bg-white border-b-4 border-slate-200">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <section id="track" className="py-16 sm:py-24 bg-white border-b-4 border-slate-200">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold text-slate-800 text-center mb-3">Track Your Shipment</h2>
-            <p className="text-slate-600 text-center mb-10 text-lg">Enter your tracking number for real-time status updates</p>
-            <form onSubmit={handleTrack} className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-4xl font-bold text-slate-800 text-center mb-3">Track Your Shipment</h2>
+            <p className="text-slate-600 text-center mb-8 sm:mb-10 text-base sm:text-lg">Enter your tracking number for real-time status updates</p>
+            <form onSubmit={handleTrack} className="flex flex-col sm:flex-row gap-3 sm:gap-4 max-w-2xl mx-auto">
               <input
                 type="text"
                 value={trackingId}

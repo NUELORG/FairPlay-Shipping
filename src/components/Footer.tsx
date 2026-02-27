@@ -2,9 +2,9 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="py-16 bg-slate-950 text-slate-400">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-        <div className="grid md:grid-cols-4 gap-12 mb-12">
+    <footer className="py-10 sm:py-16 bg-slate-950 text-slate-400">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 mb-10 sm:mb-12">
           <div>
             <h4 className="font-bold text-white mb-4">Ship</h4>
             <Link href="/send" className="block text-slate-400 hover:text-amber-400 mb-2 transition-colors">Create Shipment</Link>
@@ -28,9 +28,9 @@ export default function Footer() {
             <Link href="/contact" className="block text-slate-400 hover:text-amber-400 mb-2 transition-colors">Help Center</Link>
           </div>
         </div>
-        <div className="border-t border-slate-700 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p>© {new Date().getFullYear()} FairPlay Shipping. All rights reserved.</p>
-          <div className="flex gap-6 text-sm">
+        <div className="border-t border-slate-700 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
+          <p className="text-sm sm:text-base">© {new Date().getFullYear()} FairPlay Shipping. All rights reserved.</p>
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-sm">
             <Link href="/" className="hover:text-amber-400 transition-colors">Privacy</Link>
             <Link href="/" className="hover:text-amber-400 transition-colors">Terms</Link>
             <Link href="/admin" className="text-slate-500 hover:text-slate-400 text-xs">Admin</Link>
