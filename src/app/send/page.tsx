@@ -57,7 +57,7 @@ export default function SendPackage() {
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        throw new Error(err.error || "Failed to create shipment");
+        throw new Error(err.error || `Failed to create shipment (${res.status})`);
       }
       const shipment = await res.json();
       router.push(`/ticket/${shipment.trackingId}`);

@@ -23,8 +23,9 @@ export async function POST(request: NextRequest) {
     await createShipment(shipment);
     return NextResponse.json(shipment);
   } catch (error) {
+    const message = error instanceof Error ? error.message : "Invalid request";
     return NextResponse.json(
-      { error: "Invalid request" },
+      { error: message },
       { status: 400 }
     );
   }

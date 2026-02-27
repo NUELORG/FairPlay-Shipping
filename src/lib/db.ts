@@ -18,7 +18,12 @@ export async function dbGetAll(): Promise<unknown[]> {
   try {
     const url = await getBlobUrl();
     if (!url) return [];
-    const res = await fetch(url, { cache: "no-store" });
+    const token = process.env.BLOB_READ_WRITE_TOKEN;
+    const res = await fetch(url, {
+      cache: "no-store",
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+    });
+    if (!res.ok) return [];
     const data = await res.json();
     return Array.isArray(data) ? data : [];
   } catch {
@@ -28,7 +33,7 @@ export async function dbGetAll(): Promise<unknown[]> {
 
 export async function dbSaveAll(shipments: unknown[]): Promise<void> {
   await put(BLOB_PATH, JSON.stringify(shipments, null, 2), {
-    access: "public",
+    access: "private",
     addRandomSuffix: false,
     contentType: "application/json",
   });
