@@ -1,30 +1,14 @@
 // Vercel Blob - add from Vercel dashboard, no external signup
 // Project → Storage → Create Blob Store → token auto-added
-import { put, list } from "@vercel/blob";
+import { put, get } from "@vercel/blob";
 
 const BLOB_PATH = "fairplay/shipments.json";
 
-async function getBlobUrl(): Promise<string | null> {
-  try {
-    const { blobs } = await list({ prefix: "fairplay/" });
-    const match = blobs.find((b) => b.pathname?.endsWith("shipments.json"));
-    return match?.url ?? null;
-  } catch {
-    return null;
-  }
-}
-
 export async function dbGetAll(): Promise<unknown[]> {
   try {
-    const url = await getBlobUrl();
-    if (!url) return [];
-    const token = process.env.BLOB_READ_WRITE_TOKEN;
-    const res = await fetch(url, {
-      cache: "no-store",
-      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
-    });
-    if (!res.ok) return [];
-    const data = await res.json();
+    const result = await get(BLOB_PATH, { access: "private" });
+    if (!result || result.statusCode !== 200 || !result.stream) return [];
+    const data = await new Response(result.stream).json();
     return Array.isArray(data) ? data : [];
   } catch {
     return [];
