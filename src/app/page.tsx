@@ -103,7 +103,7 @@ export default function Home() {
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-4xl font-bold text-slate-800 text-center mb-3">Track Your Shipment</h2>
-            <p className="text-slate-600 text-center mb-8 sm:mb-10 text-base sm:text-lg">Enter your tracking number for real-time status updates</p>
+            <p className="text-slate-600 text-center mb-8 sm:mb-10 text-base sm:text-lg">Enter your tracking number for real-time status updates. <span className="text-amber-600 font-medium">Tracking saved for life — access anytime.</span></p>
             <form onSubmit={handleTrack} className="flex flex-col sm:flex-row gap-3 sm:gap-4 max-w-2xl mx-auto">
               <input
                 type="text"

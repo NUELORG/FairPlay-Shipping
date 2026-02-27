@@ -1,19 +1,15 @@
 import type { Shipment } from "@/types/shipment";
+import { dbGetAll, dbSaveAll, isDbConfigured } from "./db";
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "fs";
 import path from "path";
 
 const DATA_FILE = path.join(process.cwd(), "data", "shipments.json");
 
-function ensureDataDir() {
-  const dir = path.dirname(DATA_FILE);
-  if (!existsSync(dir)) {
-    mkdirSync(dir, { recursive: true });
-  }
-}
-
-function loadShipments(): Map<string, Shipment> {
+// Fallback: file-based store (local dev without Blob)
+function loadFromFile(): Map<string, Shipment> {
   try {
-    ensureDataDir();
+    const dir = path.dirname(DATA_FILE);
+    if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
     if (existsSync(DATA_FILE)) {
       const data = readFileSync(DATA_FILE, "utf-8");
       const arr = JSON.parse(data) as Shipment[];
@@ -25,49 +21,71 @@ function loadShipments(): Map<string, Shipment> {
   return new Map();
 }
 
-function saveShipments(shipments: Map<string, Shipment>) {
+function saveToFile(shipments: Map<string, Shipment>) {
   try {
-    ensureDataDir();
-    const arr = Array.from(shipments.values());
-    writeFileSync(DATA_FILE, JSON.stringify(arr, null, 2));
+    const dir = path.dirname(DATA_FILE);
+    if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
+    writeFileSync(DATA_FILE, JSON.stringify(Array.from(shipments.values()), null, 2));
   } catch {
     // ignore
   }
 }
 
-// Use global to persist across hot reloads, but load from file
-const globalForStore = globalThis as unknown as { shipmentsMap: Map<string, Shipment> | null };
-let shipments = globalForStore.shipmentsMap ?? loadShipments();
-if (!globalForStore.shipmentsMap) {
-  globalForStore.shipmentsMap = shipments;
+const fileStore = new Map<string, Shipment>();
+const loaded = loadFromFile();
+loaded.forEach((s, k) => fileStore.set(k, s));
+
+async function getAllFromDb(): Promise<Shipment[]> {
+  if (isDbConfigured()) {
+    const data = await dbGetAll();
+    return (data as Shipment[]).filter((s) => s?.trackingId);
+  }
+  return Array.from(fileStore.values());
 }
 
-export function createShipment(shipment: Shipment): Shipment {
-  shipments.set(shipment.trackingId, shipment);
-  saveShipments(shipments);
+async function saveAllToDb(shipments: Shipment[]) {
+  if (isDbConfigured()) {
+    await dbSaveAll(shipments);
+  } else {
+    fileStore.clear();
+    shipments.forEach((s) => fileStore.set(s.trackingId.toUpperCase(), s));
+    saveToFile(fileStore);
+  }
+}
+
+export async function createShipment(shipment: Shipment): Promise<Shipment> {
+  const all = await getAllFromDb();
+  all.push(shipment);
+  await saveAllToDb(all);
   return shipment;
 }
 
-export function getShipmentByTrackingId(trackingId: string): Shipment | undefined {
-  return shipments.get(trackingId.toUpperCase());
+export async function getShipmentByTrackingId(trackingId: string): Promise<Shipment | undefined> {
+  const key = trackingId.toUpperCase();
+  if (isDbConfigured()) {
+    const all = await getAllFromDb();
+    return all.find((s) => s.trackingId.toUpperCase() === key);
+  }
+  return fileStore.get(key);
 }
 
-export function getAllShipments(): Shipment[] {
-  return Array.from(shipments.values());
+export async function getAllShipments(): Promise<Shipment[]> {
+  return getAllFromDb();
 }
 
-export function updateShipmentStatus(
+export async function updateShipmentStatus(
   trackingId: string,
   status: Shipment["status"]
-): Shipment | undefined {
-  const shipment = shipments.get(trackingId.toUpperCase());
-  if (!shipment) return undefined;
+): Promise<Shipment | undefined> {
+  const key = trackingId.toUpperCase();
+  const all = await getAllFromDb();
+  const idx = all.findIndex((s) => s.trackingId.toUpperCase() === key);
+  if (idx === -1) return undefined;
 
+  const shipment = all[idx];
   shipment.status = status;
-  shipment.statusHistory.push({
-    status,
-    timestamp: new Date().toISOString(),
-  });
-  saveShipments(shipments);
+  shipment.statusHistory.push({ status, timestamp: new Date().toISOString() });
+
+  await saveAllToDb(all);
   return shipment;
 }

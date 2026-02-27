@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
       statusHistory: [{ status: "pending" as ShipmentStatus, timestamp: now }],
     };
 
-    createShipment(shipment);
+    await createShipment(shipment);
     return NextResponse.json(shipment);
   } catch (error) {
     return NextResponse.json(

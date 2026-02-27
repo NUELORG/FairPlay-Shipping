@@ -8,6 +8,8 @@ import { STATUS_LABELS } from "@/lib/utils";
 const STATUS_OPTIONS: ShipmentStatus[] = [
   "pending",
   "picked_up",
+  "on_hold",
+  "custom_hold",
   "in_transit",
   "out_for_delivery",
   "delivered",

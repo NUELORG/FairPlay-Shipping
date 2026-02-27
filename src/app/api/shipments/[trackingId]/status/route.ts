@@ -5,6 +5,8 @@ import type { ShipmentStatus } from "@/types/shipment";
 const VALID_STATUSES: ShipmentStatus[] = [
   "pending",
   "picked_up",
+  "on_hold",
+  "custom_hold",
   "in_transit",
   "out_for_delivery",
   "delivered",
@@ -25,7 +27,7 @@ export async function PATCH(
     );
   }
 
-  const shipment = updateShipmentStatus(trackingId, status);
+  const shipment = await updateShipmentStatus(trackingId, status);
 
   if (!shipment) {
     return NextResponse.json(

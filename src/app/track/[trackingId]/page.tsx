@@ -9,6 +9,8 @@ import { STATUS_LABELS } from "@/lib/utils";
 const STATUS_ORDER: ShipmentStatus[] = [
   "pending",
   "picked_up",
+  "on_hold",
+  "custom_hold",
   "in_transit",
   "out_for_delivery",
   "delivered",
@@ -77,11 +79,12 @@ export default function TrackPage() {
       {/* Hero */}
       <div className="relative h-56 bg-gradient-to-br from-slate-800 via-blue-900 to-slate-900 overflow-hidden">
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-          <p className="text-blue-200 text-sm font-medium">Tracking</p>
+          <p className="text-blue-200 text-sm font-medium">Tracking — Saved for life</p>
           <h1 className="text-3xl font-bold font-mono tracking-wider mt-1">{shipment.trackingId}</h1>
           <p className="mt-2 px-4 py-1 bg-white/20 rounded-full text-sm font-medium">
             {STATUS_LABELS[shipment.status]}
           </p>
+          <p className="mt-3 text-xs text-slate-400">Access this tracking anytime — your history is stored permanently</p>
         </div>
       </div>
 

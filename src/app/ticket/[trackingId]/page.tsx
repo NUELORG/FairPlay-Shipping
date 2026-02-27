@@ -53,7 +53,7 @@ export default function TicketPage() {
           </div>
           <div>
             <h2 className="font-semibold text-emerald-800">Shipment Created Successfully!</h2>
-            <p className="text-sm text-emerald-700">Save your tracking ID to track your package.</p>
+            <p className="text-sm text-emerald-700">Save your tracking ID — access your tracking history anytime. <span className="font-semibold">Saved for life.</span></p>
           </div>
         </div>
 

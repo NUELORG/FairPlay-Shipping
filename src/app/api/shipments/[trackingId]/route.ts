@@ -6,7 +6,7 @@ export async function GET(
   { params }: { params: Promise<{ trackingId: string }> }
 ) {
   const { trackingId } = await params;
-  const shipment = getShipmentByTrackingId(trackingId);
+  const shipment = await getShipmentByTrackingId(trackingId);
 
   if (!shipment) {
     return NextResponse.json(

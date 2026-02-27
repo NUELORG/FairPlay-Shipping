@@ -83,7 +83,7 @@ export default function ContactPage() {
             <div className="space-y-8">
               <div>
                 <h3 className="font-semibold text-slate-800 mb-2">Customer Support</h3>
-                <p className="text-slate-600">1-800-FAIRPLAY (1-800-324-7752)</p>
+                <p className="text-slate-600">+49 69 123 456 78</p>
                 <p className="text-slate-500 text-sm mt-1">24/7 for tracking and shipment support</p>
               </div>
               <div>
@@ -93,14 +93,14 @@ export default function ContactPage() {
               </div>
               <div>
                 <h3 className="font-semibold text-slate-800 mb-2">Headquarters</h3>
-                <p className="text-slate-600">123 Logistics Way</p>
-                <p className="text-slate-600">Suite 500</p>
-                <p className="text-slate-600">New York, NY 10001</p>
+                <p className="text-slate-600">FairPlay Shipping GmbH</p>
+                <p className="text-slate-600">Logistikstraße 123</p>
+                <p className="text-slate-600">60327 Frankfurt am Main, Germany</p>
               </div>
               <div>
                 <h3 className="font-semibold text-slate-800 mb-2">Office Hours</h3>
-                <p className="text-slate-600">Monday – Friday: 8:00 AM – 8:00 PM EST</p>
-                <p className="text-slate-600">Saturday: 9:00 AM – 5:00 PM EST</p>
+                <p className="text-slate-600">Monday – Friday: 8:00 AM – 8:00 PM CET</p>
+                <p className="text-slate-600">Saturday: 9:00 AM – 5:00 PM CET</p>
               </div>
             </div>
 

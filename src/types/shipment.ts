@@ -1,6 +1,8 @@
 export type ShipmentStatus =
   | "pending"
   | "picked_up"
+  | "on_hold"
+  | "custom_hold"
   | "in_transit"
   | "out_for_delivery"
   | "delivered";
