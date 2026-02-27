@@ -62,7 +62,8 @@ export default function SendPackage() {
       const shipment = await res.json();
       router.push(`/ticket/${shipment.trackingId}`);
     } catch (err) {
-      alert("Something went wrong. Please try again.");
+      const msg = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+      alert(msg);
     } finally {
       setLoading(false);
     }
